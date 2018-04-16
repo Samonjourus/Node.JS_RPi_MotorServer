@@ -1,5 +1,5 @@
-# Purpose
-This repository was created to serve as a starting point for node.js webserver applications. It creates a webserver on port 80 with one default endpoint at the root url. Accessing the root should return "{"status":"good"}". In addition, the server logs all requests sent to it.
+# Function
+The application creates a web server that hosts a single webpage. The webpage allows the user to send motor commands to 3 wire servos
 # server.log
 server.log keeps track of:
 * IP address of the requester the:

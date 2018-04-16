@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Motor Driver</title>
+  </head>
+  <body onkeydown="send(event)" onkeyup="release(event)">
+    <h1>Motor Driver</h1>
+    <ul>
+      <li>Press W to move motor 1 clockwise.</li>
+      <li>Press S to move motor 1 counter clockwise</li>
+      <li>Press A to move motor 2 clockwise.</li>
+      <li>Press D to move motor 2 counter clockwise</li>
+      <li>Press X to move motor 3 clockwise.</li>
+      <li>Press C to move motor 3 counter clockwise</li>
+    </ul>
+    <p id="motor1"> Motor 1 is stopped.</p>
+    <p id="motor2"> Motor 2 is stopped.</p>
+    <p id="motor3"> Motor 3 is stopped.</p>
+
+    <script>
+      var motor1 = false;
+      var motor2 = false;
+      var motor3 = false;
+
+      function send(event){
+        let key = event.key;
+        if(key == "W" || key == "w")
+          if(!motor1){
+            let client = new XMLHttpRequest();
+            client.open( "POST", "http://127.0.0.1/api/write", false ); // false for synchronous request
+            client.setRequestHeader("Content-type", "application/json; charset=utf-8");
+            console.log("motor isnt on");
+            motor1 = true;
+            data = {"Motor1":200,
+              "Motor2":0,
+              "Motor3":0}
+            client.send(JSON.stringify(data))
+            document.getElementById("motor1").innerHTML = "Motor 1 is moving forward.";
+          }
+        if(key == "A" || key == "a")
+          if(!motor2){
+            let client = new XMLHttpRequest();
+            client.open( "POST", "http://127.0.0.1/api/write", false ); // false for synchronous request
+            client.setRequestHeader("Content-type", "application/json; charset=utf-8");
+            motor2 = true;
+            data = {"Motor1":0,
+              "Motor2":200,
+              "Motor3":0}
+            client.send(JSON.stringify(data))
+            document.getElementById("motor2").innerHTML = "Motor 2 is moving forward.";
+          }
+        if(key == "S" || key == "s")
+          if(!motor1){
+            let client = new XMLHttpRequest();
+            client.open( "POST", "http://127.0.0.1/api/write", false ); // false for synchronous request
+            client.setRequestHeader("Content-type", "application/json; charset=utf-8");
+            motor1 = true;
+            data = {"Motor1":-200,
+              "Motor2":0,
+              "Motor3":0}
+            client.send(JSON.stringify(data))
+            document.getElementById("motor1").innerHTML = "Motor 1 is moving backward.";
+          }
+        if(key == "D" || key == "d")
+          if(!motor2){
+            let client = new XMLHttpRequest();
+            client.open( "POST", "http://127.0.0.1/api/write", false ); // false for synchronous request
+            client.setRequestHeader("Content-type", "application/json; charset=utf-8");
+            motor2 = true;
+            data = {"Motor1":0,
+              "Motor2":-200,
+              "Motor3":0}
+            client.send(JSON.stringify(data))
+            document.getElementById("motor2").innerHTML = "Motor 2 is moving backward.";
+          }
+        if(key == "X" || key == "x")
+          if(!motor3){
+            let client = new XMLHttpRequest();
+            client.open( "POST", "http://127.0.0.1/api/write", false ); // false for synchronous request
+            client.setRequestHeader("Content-type", "application/json; charset=utf-8");
+            motor3 = true;
+            data = {"Motor1":0,
+              "Motor2":0,
+              "Motor3":200}
+            client.send(JSON.stringify(data))
+            document.getElementById("motor3").innerHTML = "Motor 3 is moving forward.";
+          }
+        if(key == "C" || key == "c")
+          if(!motor3){
+            let client = new XMLHttpRequest();
+            client.open( "POST", "http://127.0.0.1/api/write", false ); // false for synchronous request
+            client.setRequestHeader("Content-type", "application/json; charset=utf-8");
+            motor3 = true;
+            data = {"Motor1":0,
+              "Motor2":0,
+              "Motor3":-200}
+            client.send(JSON.stringify(data))
+            document.getElementById("motor3").innerHTML = "Motor 3 is moving backward.";
+          }
+          console.log(motor1 + " "+motor2 + " "+motor3 );
+          return;
+      }
+      function release(event){
+        let key = event.key;
+        if(key == "W" || key == "w"){
+          let client = new XMLHttpRequest();
+          client.open( "POST", "http://127.0.0.1/api/write", true ); // false for synchronous request
+          client.setRequestHeader("Content-type", "application/json; charset=utf-8");
+          console.log("w released");
+          motor1 = false;
+          data = {"Motor1":-200,
+            "Motor2":0,
+            "Motor3":0}
+          client.send(JSON.stringify(data))
+          document.getElementById("motor1").innerHTML = "Motor 1 is stopped.";
+        }
+        if(key == "A" || key == "a"){
+          let client = new XMLHttpRequest();
+          client.open( "POST", "http://127.0.0.1/api/write", true ); // false for synchronous request
+          client.setRequestHeader("Content-type", "application/json; charset=utf-8");
+          motor2 = false;
+          data = {"Motor1":0,
+            "Motor2":-200,
+            "Motor3":0}
+          client.send(JSON.stringify(data))
+          document.getElementById("motor2").innerHTML = "Motor 2 is stopped.";
+        }
+        if(key == "S" || key == "s"){
+          let client = new XMLHttpRequest();
+          client.open( "POST", "http://127.0.0.1/api/write", true ); // false for synchronous request
+          client.setRequestHeader("Content-type", "application/json; charset=utf-8");
+          motor1 = false;
+          data = {"Motor1":200,
+            "Motor2":0,
+            "Motor3":0}
+          client.send(JSON.stringify(data))
+          document.getElementById("motor1").innerHTML = "Motor 1 is stopped.";
+        }
+        if(key == "D" || key == "d"){
+          let client = new XMLHttpRequest();
+          client.open( "POST", "http://127.0.0.1/api/write", true ); // false for synchronous request
+          client.setRequestHeader("Content-type", "application/json; charset=utf-8");
+          motor2 = false;
+          data = {"Motor1":0,
+            "Motor2":200,
+            "Motor3":0}
+          client.send(JSON.stringify(data))
+          document.getElementById("motor2").innerHTML = "Motor 2 is stopped.";
+        }
+        if(key == "X" || key == "x"){
+          let client = new XMLHttpRequest();
+          client.open( "POST", "http://127.0.0.1/api/write", true ); // false for synchronous request
+          client.setRequestHeader("Content-type", "application/json; charset=utf-8");
+          motor3 = false;
+          data = {"Motor1":0,
+            "Motor2":0,
+            "Motor3":-200}
+          client.send(JSON.stringify(data))
+          document.getElementById("motor3").innerHTML = "Motor 3 is stopped.";
+          }
+        if(key == "C" || key == "c"){
+          let client = new XMLHttpRequest();
+          client.open( "POST", "http://127.0.0.1/api/write", true ); // false for synchronous request
+          client.setRequestHeader("Content-type", "application/json; charset=utf-8");
+          motor3 = false;
+          data = {"Motor1":0,
+            "Motor2":0,
+            "Motor3":200}
+          client.send(JSON.stringify(data))
+          }
+          console.log(motor1 + " "+motor2 + " "+motor3 );
+          document.getElementById("motor3").innerHTML = "Motor 3 is stopped.";
+          return;
+      }
+    </script>
+  </body>
+</html>

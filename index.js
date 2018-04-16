@@ -4,7 +4,7 @@ const FILESYSTEM = require("fs")
 const BODYPARSER = require("body-parser")
 
 var endpoints = require("./endpoints/endpoints.js")
-//
+
 var webServer = EXPRESS();
 var port = 80;
 
@@ -17,9 +17,7 @@ webServer.use(function(req, res, next){
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, SEARCH, DELETE");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-
-webServer.use(endpoints)
-
+  console.log(__dirname+"\\website");
   if(req.method == "OPTIONS")
     {
       res.status(200);
@@ -29,6 +27,8 @@ webServer.use(endpoints)
     next();
 });
 
+webServer.use(endpoints)
+webServer.use(EXPRESS.static(__dirname+"\\website"))
 webServer.listen(port, function(){
   console.log("webserver running on port " + port);
 })
