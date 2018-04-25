@@ -84,7 +84,7 @@
               "Motor2":0,
               "Motor3":200}
             client.send(JSON.stringify(data))
-            document.getElementById("motor3").innerHTML = "Motor 3 is moving forward.";
+            document.getElementById("motor3").innerHTML = "Motor 3 is moving backward.";
           }
         if(key == "C" || key == "c")
           if(!motor3){
@@ -96,7 +96,7 @@
               "Motor2":0,
               "Motor3":-200}
             client.send(JSON.stringify(data))
-            document.getElementById("motor3").innerHTML = "Motor 3 is moving backward.";
+            document.getElementById("motor3").innerHTML = "Motor 3 is moving forward.";
           }
           console.log(motor1 + " "+motor2 + " "+motor3 );
           return;

@@ -1,5 +1,5 @@
 const EXPRESS = require("express")
-//const MOTORCOMMANDS = require("../MotorCommands.js")
+const MOTORCOMMANDS = require("../MotorCommands.js")
 router = EXPRESS.Router();
 
 router.get("/api/status", function(req, res){

@@ -6,9 +6,9 @@ var currentSpeeds = {
   Motor3:1500
 }
 
-var Motor1 = GPIO(1, {mode:GPIO.OUTPUT})
-var Motor2 = GPIO(1, {mode:GPIO.OUTPUT})
-var Motor3 = GPIO(1, {mode:GPIO.OUTPUT})
+var Motor1 = GPIO(16, {mode:GPIO.OUTPUT})
+var Motor2 = GPIO(20, {mode:GPIO.OUTPUT})
+var Motor3 = GPIO(21, {mode:GPIO.OUTPUT})
 
 function WriteSpeeds(Speed1, Speed2, Speed3){
   currentSpeeds.Motor1 = currentSpeeds.Motor1+Speed1;
