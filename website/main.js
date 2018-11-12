@@ -41,7 +41,7 @@ module.exports = ".body{\n  width: 100%;\n  height: 100%;\n  border-style: solid
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"body\">\n  <div class=\"main\">\n    <div class=\"motor\">\n      motor1: 0 - <b>{{motor1PWMModifier}}</b> - 100\n    </div>\n    <div class=\"motor\">\n      motor2: 0 - <b>{{motor2PWMModifier}}</b> - 100\n    </div>\n    <div class=\"motor\">\n      motor3: 0 - <b>{{motor3PWMModifier}}</b> - 100\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"body\">\n  <div class=\"main\">\n    <div class=\"motor\">\n      <button type=\"button\" (click)=\"step(-10,1)\" name=\"decrement1\"><b>-</b></button> motor1: 0 - <b>{{motor1PWMModifier}}</b> - 100 <button type=\"button\" (click)=\"step(10,1)\" name=\"increment1\"><b>+</b></button>\n    </div>\n    <div class=\"motor\">\n      <button type=\"button\" (click)=\"step(-10,2)\" name=\"decrement2\"><b>-</b></button> motor2: 0 - <b>{{motor2PWMModifier}}</b> - 100 <button type=\"button\" (click)=\"step(10,2)\" name=\"increment2\"><b>+</b></button>\n    </div>\n    <div class=\"motor\">\n      <button type=\"button\" (click)=\"step(-10,3)\" name=\"decrement3\"><b>-</b></button> motor3: 0 - <b>{{motor3PWMModifier}}</b> - 100 <button type=\"button\" (click)=\"step(10,3)\" name=\"increment3\"><b>+</b></button>\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -76,14 +76,27 @@ var AppComponent = /** @class */ (function () {
         this.motor1PWMModifier = 0;
         this.motor2PWMModifier = 0;
         this.motor3PWMModifier = 0;
+        this.host = "http://127.0.0.1:8080";
         this.getStatus().subscribe(function (data) {
-            _this.motor1PWMModifier = 1;
-            _this.motor2PWMModifier = 2;
-            _this.motor3PWMModifier = 3;
+            _this.motor1PWMModifier = data["motor1"];
+            _this.motor2PWMModifier = data["motor2"];
+            _this.motor3PWMModifier = data["motor3"];
         });
     }
+    AppComponent.prototype.step = function (number, motor) {
+        var _this = this;
+        console.log("changing motor " + motor + " PWM by " + number);
+        this.writeStep({ "step": number, "motor": motor }).subscribe(function (data) {
+            _this.motor1PWMModifier = data["motor1"];
+            _this.motor2PWMModifier = data["motor2"];
+            _this.motor3PWMModifier = data["motor3"];
+        });
+    };
     AppComponent.prototype.getStatus = function () {
-        return this.http.get('/status');
+        return this.http.get('/api/status');
+    };
+    AppComponent.prototype.writeStep = function (data) {
+        return this.http.post('/api/step', data);
     };
     AppComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({

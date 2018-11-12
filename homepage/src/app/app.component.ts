@@ -31,11 +31,11 @@ export class AppComponent {
   }
 
   getStatus(){
-    return this.http.get(this.host+'/api/status')
+    return this.http.get('/api/status')
   }
 
   writeStep(data){
-    return this.http.post(this.host+'/api/step', data)
+    return this.http.post('/api/step', data)
   }
 
 }
