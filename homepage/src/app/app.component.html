@@ -1,13 +1,13 @@
 <div class="body">
   <div class="main">
     <div class="motor">
-      motor1: 0 - <b>{{motor1PWMModifier}}</b> - 100
+      <button type="button" (click)="step(-10,1)" name="decrement1"><b>-</b></button> motor1: 0 - <b>{{motor1PWMModifier}}</b> - 100 <button type="button" (click)="step(10,1)" name="increment1"><b>+</b></button>
     </div>
     <div class="motor">
-      motor2: 0 - <b>{{motor2PWMModifier}}</b> - 100
+      <button type="button" (click)="step(-10,2)" name="decrement2"><b>-</b></button> motor2: 0 - <b>{{motor2PWMModifier}}</b> - 100 <button type="button" (click)="step(10,2)" name="increment2"><b>+</b></button>
     </div>
     <div class="motor">
-      motor3: 0 - <b>{{motor3PWMModifier}}</b> - 100
+      <button type="button" (click)="step(-10,3)" name="decrement3"><b>-</b></button> motor3: 0 - <b>{{motor3PWMModifier}}</b> - 100 <button type="button" (click)="step(10,3)" name="increment3"><b>+</b></button>
     </div>
   </div>
 </div>

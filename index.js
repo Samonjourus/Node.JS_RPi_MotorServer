@@ -6,7 +6,7 @@ const BODYPARSER = require("body-parser")
 var endpoints = require("./endpoints/endpoints.js")
 
 var webServer = EXPRESS();
-var port = 80;
+var port = 8080;
 
 webServer.use(BODYPARSER.json())
 webServer.use(BODYPARSER.urlencoded({extended:true}))
