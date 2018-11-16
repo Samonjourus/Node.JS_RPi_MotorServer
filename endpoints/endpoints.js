@@ -18,6 +18,13 @@ router.post("/api/write", function(req,res){
   }
 })
 
+router.post("/api/reset", function(req,res){
+  MOTORCOMMANDS.reset();
+  PWM = MOTORCOMMANDS.read();
+  PWM["status"] = "good";
+  res.end(JSON.stringify(PWM));
+})
+
 router.post("/api/step", function(req,res){
   if(req.body.step != undefined && req.body.motor != undefined){
     MOTORCOMMANDS.step(req.body.step,req.body.motor)
