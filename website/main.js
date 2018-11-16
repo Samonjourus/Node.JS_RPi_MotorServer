@@ -30,7 +30,7 @@ webpackEmptyAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".body{\n  width: 100%;\n  height: 100%;\n  border-style: solid;\n  border-width: thin;\n}\n.main{\n  padding: 10% 0;\n  text-align: center;\n  margin: auto;\n}\n.motor{\n\n}\n"
+module.exports = ".body{\n  width: 100%;\n  height: 100%;\n  border-style: solid;\n  border-width: thin;\n}\n.main{\n  padding: 10% 0;\n  text-align: center;\n  margin: auto;\n}\n.motor{\n\n}\n.reset{\n  \n}\n"
 
 /***/ }),
 
@@ -41,7 +41,7 @@ module.exports = ".body{\n  width: 100%;\n  height: 100%;\n  border-style: solid
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"body\">\n  <div class=\"main\">\n    <div class=\"motor\">\n      <button type=\"button\" (click)=\"step(-10,1)\" name=\"decrement1\"><b>-</b></button> motor1: 0 - <b>{{motor1PWMModifier}}</b> - 100 <button type=\"button\" (click)=\"step(10,1)\" name=\"increment1\"><b>+</b></button>\n    </div>\n    <div class=\"motor\">\n      <button type=\"button\" (click)=\"step(-10,2)\" name=\"decrement2\"><b>-</b></button> motor2: 0 - <b>{{motor2PWMModifier}}</b> - 100 <button type=\"button\" (click)=\"step(10,2)\" name=\"increment2\"><b>+</b></button>\n    </div>\n    <div class=\"motor\">\n      <button type=\"button\" (click)=\"step(-10,3)\" name=\"decrement3\"><b>-</b></button> motor3: 0 - <b>{{motor3PWMModifier}}</b> - 100 <button type=\"button\" (click)=\"step(10,3)\" name=\"increment3\"><b>+</b></button>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"body\">\n  <div class=\"main\">\n    <div class=\"motor\">\n      <button type=\"button\" (click)=\"step(-10,1)\" name=\"decrement1\"><b>-</b></button> motor1: 0 - <b>{{motor1PWMModifier}}</b> - 100 <button type=\"button\" (click)=\"step(10,1)\" name=\"increment1\"><b>+</b></button>\n    </div>\n    <div class=\"motor\">\n      <button type=\"button\" (click)=\"step(-10,2)\" name=\"decrement2\"><b>-</b></button> motor2: 0 - <b>{{motor2PWMModifier}}</b> - 100 <button type=\"button\" (click)=\"step(10,2)\" name=\"increment2\"><b>+</b></button>\n    </div>\n    <div class=\"motor\">\n      <button type=\"button\" (click)=\"step(-10,3)\" name=\"decrement3\"><b>-</b></button> motor3: 0 - <b>{{motor3PWMModifier}}</b> - 100 <button type=\"button\" (click)=\"step(10,3)\" name=\"increment3\"><b>+</b></button>\n    </div>\n    <div class=\"reset\">\n       <button type=\"button\" (click)=\"reset()\" name=\"resetButton\"><b>Reset</b></button>\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -92,8 +92,20 @@ var AppComponent = /** @class */ (function () {
             _this.motor3PWMModifier = data["motor3"];
         });
     };
+    AppComponent.prototype.reset = function () {
+        var _this = this;
+        this.sendReset().subscribe(function (data) {
+            _this.motor1PWMModifier = data["motor1"];
+            _this.motor2PWMModifier = data["motor2"];
+            _this.motor3PWMModifier = data["motor3"];
+        });
+    };
+    //request calls
     AppComponent.prototype.getStatus = function () {
         return this.http.get('/api/status');
+    };
+    AppComponent.prototype.sendReset = function () {
+        return this.http.post('/api/reset', {});
     };
     AppComponent.prototype.writeStep = function (data) {
         return this.http.post('/api/step', data);

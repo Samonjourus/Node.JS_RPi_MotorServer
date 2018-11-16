@@ -50,9 +50,22 @@ function stepPWM(increment, motor){
   Motor3.servoWrite(currentSpeeds.Motor3);
 }
 
+function reset(){
+
+  currentSpeeds.Motor1 = 1500;
+  currentSpeeds.Motor2 = 1500;
+  currentSpeeds.Motor3 = 1500;
+
+  Motor1.servoWrite(0);
+  Motor2.servoWrite(0);
+  Motor3.servoWrite(0);
+
+}
+
 module.exports = {
   status:currentSpeeds,
   write:setPWM,
   read:getPWM,
-  step:stepPWM
+  step:stepPWM,
+  reset:reset
 }

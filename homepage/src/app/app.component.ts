@@ -29,11 +29,21 @@ export class AppComponent {
       this.motor3PWMModifier = data["motor3"];
     });
   }
+  reset(){
+    this.sendReset().subscribe((data)=>{
+      this.motor1PWMModifier = data["motor1"];
+      this.motor2PWMModifier = data["motor2"];
+      this.motor3PWMModifier = data["motor3"];
+    })
+  }
 
+  //request calls
   getStatus(){
     return this.http.get('/api/status')
   }
-
+  sendReset(){
+    return this.http.post('/api/reset',{})
+  }
   writeStep(data){
     return this.http.post('/api/step', data)
   }
